@@ -1,0 +1,548 @@
+[
+  {
+    "fields": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "category"
+      },
+      {
+        "initialValue": 0,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Controls the display order of categories (lower numbers come first)",
+        "name": "sortOrder",
+        "type": "number"
+      }
+    ],
+    "name": "category",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Product Name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Product Images"
+      },
+      {
+        "name": "intro",
+        "type": "string",
+        "title": "Product Intro"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "price",
+        "type": "number",
+        "title": "Product price"
+      },
+      {
+        "name": "discount",
+        "type": "number",
+        "title": "Discount percentage"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "category"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to category"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "stock",
+        "type": "number"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "New",
+              "value": "new"
+            },
+            {
+              "title": "Hot",
+              "value": "hot"
+            },
+            {
+              "title": "Sale",
+              "value": "sale"
+            }
+          ]
+        },
+        "name": "status",
+        "type": "string",
+        "title": "Product status"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tshirt",
+              "value": "tshirt"
+            },
+            {
+              "title": "Pants",
+              "value": "pants"
+            },
+            {
+              "title": "Shorts",
+              "value": "shorts"
+            },
+            {
+              "title": "Hoodie",
+              "value": "hoodie"
+            },
+            {
+              "title": "Others",
+              "value": "others"
+            }
+          ]
+        },
+        "name": "variant",
+        "type": "string",
+        "title": "Product type"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "S",
+                      "value": "S"
+                    },
+                    {
+                      "title": "M",
+                      "value": "M"
+                    },
+                    {
+                      "title": "L",
+                      "value": "L"
+                    },
+                    {
+                      "title": "XL",
+                      "value": "XL"
+                    },
+                    {
+                      "title": "XXL",
+                      "value": "XXL"
+                    },
+                    {
+                      "title": "XXXL",
+                      "value": "XXXL"
+                    }
+                  ]
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "S",
+                          "M",
+                          "L",
+                          "XL",
+                          "XXL",
+                          "XXXL"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "name",
+                "type": "string",
+                "title": "Size"
+              },
+              {
+                "description": "Optional - You can provide size guide or notes",
+                "name": "details",
+                "type": "string",
+                "title": "Additional Details"
+              }
+            ],
+            "type": "object",
+            "name": "variation"
+          }
+        ],
+        "name": "variations",
+        "type": "array",
+        "title": "Product Variations (Sizes)"
+      }
+    ],
+    "name": "product",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "to": [
+          {
+            "type": "product"
+          }
+        ],
+        "name": "product",
+        "type": "reference"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Reviewer Name"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 5
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "rating",
+        "type": "number",
+        "title": "Rating (1-5)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "comment",
+        "type": "text"
+      },
+      {
+        "name": "date",
+        "type": "datetime",
+        "title": "Review Date"
+      }
+    ],
+    "name": "review",
+    "type": "document",
+    "title": "Product Review"
+  },
+  {
+    "fields": [
+      {
+        "name": "orderId",
+        "type": "string",
+        "title": "Order ID"
+      },
+      {
+        "name": "customerName",
+        "type": "string"
+      },
+      {
+        "name": "customerEmail",
+        "type": "string"
+      },
+      {
+        "name": "clerkUserId",
+        "type": "string",
+        "title": "Clerk User ID"
+      },
+      {
+        "name": "deliveryAddress",
+        "type": "string"
+      },
+      {
+        "name": "subTotalAmount",
+        "type": "number",
+        "title": "Subtotal Amount (Naira)"
+      },
+      {
+        "name": "totalAmount",
+        "type": "number",
+        "title": "Total Amount (Naira)"
+      },
+      {
+        "name": "discountAmount",
+        "type": "number",
+        "title": "Discount Amount (in Naira)"
+      },
+      {
+        "name": "shippingFee",
+        "type": "number",
+        "title": "Shipping Fee (in Naira)"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "image",
+                "type": "url",
+                "title": "Product Image"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Product Name"
+              },
+              {
+                "name": "variant",
+                "type": "string"
+              },
+              {
+                "name": "size",
+                "type": "string"
+              },
+              {
+                "name": "quantity",
+                "type": "number"
+              },
+              {
+                "name": "price",
+                "type": "number",
+                "title": "Price (per unit)"
+              }
+            ],
+            "type": "object",
+            "name": "cartItem"
+          }
+        ],
+        "name": "items",
+        "type": "array"
+      },
+      {
+        "initialValue": false,
+        "name": "paid",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Pending",
+              "value": "pending"
+            },
+            {
+              "title": "Processing",
+              "value": "processing"
+            },
+            {
+              "title": "Shipped",
+              "value": "shipped"
+            },
+            {
+              "title": "Delivered",
+              "value": "delivered"
+            },
+            {
+              "title": "Cancelled",
+              "value": "cancelled"
+            }
+          ]
+        },
+        "initialValue": "pending",
+        "name": "status",
+        "type": "string",
+        "title": "Order Status"
+      },
+      {
+        "readOnly": true,
+        "name": "createdAt",
+        "type": "datetime"
+      }
+    ],
+    "name": "order",
+    "type": "document",
+    "title": "Orders"
+  },
+  {
+    "fields": [
+      {
+        "name": "clerkUserId",
+        "type": "string",
+        "title": "Clerk User ID"
+      },
+      {
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "name": "fullName",
+        "type": "string"
+      },
+      {
+        "name": "deliveryAddress",
+        "type": "string"
+      }
+    ],
+    "name": "user",
+    "type": "document",
+    "title": "Users"
+  }
+]
