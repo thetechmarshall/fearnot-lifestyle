@@ -44,7 +44,7 @@ export const getReviewsByProductId = async (
 
 export const getAllCategories = async () => {
   const CATEGORIES_QUERY = defineQuery(
-    `*[_type == "category"] | order(sortOrder asc)`
+    `*[_type == "category"]{ _id, slug } | order(sortOrder asc)`
   );
   try {
     const categories = await sanityFetch({

@@ -7,15 +7,6 @@ import { getAllCategories } from "@/sanity/helpers/queries";
 // 🟡 Optional: enables fallback for runtime params
 export const dynamicParams = true;
 
-// ✅ Tells Next.js which paths to statically generate
-export async function generateStaticParams() {
-  const categories = await getAllCategories();
-  return categories
-  .filter((category: Category) => category.slug?.current)
-  .map((category: Category) => ({
-    slug: category.slug!.current,
-  }));
-}
 
 const CategoryPage = async ({ params }: { params: { slug: string } }) => {
   return (
@@ -25,5 +16,15 @@ const CategoryPage = async ({ params }: { params: { slug: string } }) => {
     </Container>
   );
 };
+
+export async function generateStaticParams() {
+  const categories = await getAllCategories();
+  return categories
+  .filter((category: Category) => category.slug?.current)
+  .map((category: Category) => ({
+    slug: category.slug!.current,
+  }));
+}
+
 
 export default CategoryPage;
