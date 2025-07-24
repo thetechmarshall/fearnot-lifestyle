@@ -16,6 +16,7 @@ const ProductGrid = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const query = `*[_type == 'product' && variant == $variant] | order(name asc)`;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const params = { variant: selectedTab.toLocaleLowerCase() };
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +31,7 @@ const ProductGrid = () => {
       }
     };
     fetchData();
-  }, [selectedTab]);
+  }, [selectedTab, params, query]);
 
   return (
     <div className="mt-10 flex flex-col items-center">
