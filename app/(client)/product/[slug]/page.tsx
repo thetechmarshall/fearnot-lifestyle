@@ -11,10 +11,18 @@ import { Product } from "@/sanity.types";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const products = await getAllProducts();
-  return products.map((product: Product) => ({
-    slug: product.slug.current,
-  }));
+  const products: Product[] = await getAllProducts();
+
+  return products
+    .filter(
+      (product: Product): product is Product & { slug: { current: string } } =>
+        !!product.slug?.current
+    )
+    .map((product: Product & { slug: { current: string } }) => ({
+      params: {
+        slug: product.slug.current,
+      },
+    }));
 }
 
 interface Props {

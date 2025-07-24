@@ -4,7 +4,6 @@ import Title from "@/components/Title";
 import { Category } from "@/sanity.types";
 import { getAllCategories } from "@/sanity/helpers/queries";
 
-// 🟡 Optional: enables fallback for runtime params
 export const dynamicParams = true;
 
 const CategoryPage = async ({ params }: { params: { slug: string } }) => {
@@ -22,7 +21,9 @@ export async function generateStaticParams() {
   return categories
     .filter((category): category is Category & { slug: { current: string } } => !!category.slug?.current)
     .map((category) => ({
-      slug: category.slug.current,
+      params: {
+        slug: category.slug.current,
+      },
     }));
 }
 
