@@ -1,10 +1,21 @@
 import {
+  getAllProducts,
   getProductBySlug,
   getReviewsByProductId,
 } from "@/sanity/helpers/queries";
 import { notFound } from "next/navigation";
 import ProductPageWrapper from "@/components/ProductPageWrapper";
 import { Product } from "@/sanity.types";
+
+// Enable fallback
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const products = await getAllProducts();
+  return products.map((product: Product) => ({
+    slug: product.slug.current,
+  }));
+}
 
 interface Props {
   params: { slug: string };

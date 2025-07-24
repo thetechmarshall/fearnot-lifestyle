@@ -114,3 +114,11 @@ export const getMyOrders = async (userId: string) => {
     return [];
   }
 };
+
+
+export const getAllProducts = async () => {
+  const query = `*[_type == "product"]{ slug }`;
+  return await client.fetch(query); 
+};
+
+
