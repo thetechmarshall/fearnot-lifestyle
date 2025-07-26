@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../lib/live";
 import { client } from "../lib/client";
-import { Category, Review } from "@/sanity.types";
+import { Review } from "@/sanity.types";
 
 export const getProductBySlug = async (slug: string) => {
   const PRODUCT_BY_SLUG_QUERY = defineQuery(
@@ -42,14 +42,15 @@ export const getReviewsByProductId = async (
   }
 };
 
-export const getAllCategories = async (): Promise<Category[]> => {
+export const getAllCategories = async () => {
   const CATEGORIES_QUERY = defineQuery(
-    `*[_type == "category"]{ _id, slug } | order(sortOrder asc)`
+    `*[_type == "category"] | order(sortOrder asc)`
   );
-
   try {
-    const res: { data: Category[] } = await sanityFetch({ query: CATEGORIES_QUERY });
-    return res.data || []; 
+    const categories = await sanityFetch({
+      query: CATEGORIES_QUERY,
+    });
+    return categories.data || [];
   } catch (error) {
     console.log("Error fetching all the categories:", error);
     return [];
