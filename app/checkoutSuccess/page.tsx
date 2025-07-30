@@ -58,7 +58,7 @@ const CheckoutSuccessPage = () => {
             Your order has been confirmed and is being processed.
           </p>
           <Button asChild>
-            <Link href="/">Go back home</Link>
+            <Link href="/orders">View your order</Link>
           </Button>
         </>
       )}

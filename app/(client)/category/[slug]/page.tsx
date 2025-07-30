@@ -1,16 +1,20 @@
-import CategoryProducts from "@/components/CategoryProducts";
+import CategoryProductsWrapper from "@/components/CategoryProductsWrapper"; 
 import Container from "@/components/Container";
 import Title from "@/components/Title";
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+type CategoryPageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+const CategoryPage = async ({ params }: CategoryPageProps) => {
   return (
     <Container className="py-10">
       <Title className="text-xl">Product Filter</Title>
-      <CategoryProducts slug={params.slug} />
+      <CategoryProductsWrapper slug={params.slug} />
     </Container>
   );
-}
+};
+
+export default CategoryPage;

@@ -16,7 +16,7 @@ interface Props {
 
 const ITEMS_PER_PAGE = 8;
 
-const CategoryProducts = ({ slug }: Props) => {
+const CategoryProductsWrapper = ({ slug }: Props) => {
   const [currentType, setCurrentType] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -150,4 +150,4 @@ const CategoryProducts = ({ slug }: Props) => {
   );
 };
 
-export default CategoryProducts;
+export default CategoryProductsWrapper;
