@@ -10,22 +10,23 @@ const sanity = createClient({
 });
 
 export async function POST(req: Request) {
-  const body = await req.json();
-
   try {
+    const body = await req.json();
+
     const order = await sanity.create({
       _type: "order",
       ...body,
     });
 
     return NextResponse.json({ success: true, order });
+
   } catch (error) {
-    return (
-      NextResponse.json(
-        { success: false, error: "Failed to save order" },
-        { status: 500 }
-      ),
-      error
+    console.error("Error creating order:", error);
+
+    // THE FIX: Return only a single NextResponse object.
+    return NextResponse.json(
+      { success: false, error: "Failed to save order" },
+      { status: 500 }
     );
   }
 }
