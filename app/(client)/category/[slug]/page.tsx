@@ -2,13 +2,16 @@ import CategoryProductsWrapper from "@/components/CategoryProductsWrapper";
 import Container from "@/components/Container";
 import Title from "@/components/Title";
 
-// This is the implementation of the PageProp Promise type error fix.
-// It types the props object itself as containing a Promise.
-export default async function CategoryPage(props: {
+// Define the props type to explicitly expect a Promise, as per the new Next.js convention.
+type PageProps = {
   params: Promise<{ slug: string }>;
-}) {
-  // We MUST await the promise to get the actual params object
-  const { slug } = await props.params;
+};
+
+export default async function CategoryPage({ params }: PageProps) {
+  // Await the promise to resolve it and get the actual params object.
+  const resolvedParams = await params;
+
+  const slug = resolvedParams.slug;
 
   return (
     <Container className="py-10">
