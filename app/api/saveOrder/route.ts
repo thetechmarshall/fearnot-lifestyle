@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, order });
 
-  } catch (error) {
+  } catch (error) { 
     console.error("Error creating order:", error);
 
     // THE FIX: Return only a single NextResponse object.
